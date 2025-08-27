@@ -1,6 +1,6 @@
 from database import criar_tabela, inserir_produto
 from scraper import get_produtos_link, scrape_produtos_detalhes
-from time import time
+from time import sleep
 
 def main():
     print("Iniciando o processo de scraping...")
@@ -13,11 +13,11 @@ def main():
     print(f"Encontrados {len(urls)} links de produtos.")
     
     for link in urls:
-        url_completa = f"https://www.lojamaeto.com/{link}" if link.startswith('/') else link
+        url_completa = f"https://www.lojamaeto.com{link}" if link.startswith('/') else link
         produto_data = scrape_produtos_detalhes(url_completa)
         if produto_data:
             inserir_produto(produto_data)
-            time.sleep(5)
+            sleep(1)
              
     print("Processo de scraping concluído.")
 
